@@ -1,0 +1,24 @@
+name: Schematic archive structure check
+on:
+  push:
+    paths:
+      - 'source/**'
+      - 'tools/**'
+      - '.github/workflows/archive-check.yml'
+  pull_request:
+    paths:
+      - 'source/**'
+      - 'tools/**'
+      - '.github/workflows/archive-check.yml'
+jobs:
+  source-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate JSON and expected sheet titles (not ERC/DRC)
+        run: |
+          python -m compileall -q tools
+          python tools/inspect_schematic.py source/SCH_sensorpcb_2026-11-09.json --verify-archive
