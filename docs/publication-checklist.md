@@ -1,11 +1,7 @@
-# Publication checklist
+# Repository notes
 
-- [ ] METU Formula Racing team approval to release original circuit designs and internal annotations.
-- [ ] Review collaborator names and all notes in the EasyEDA export before changing repository visibility.
-- [ ] Confirm which file revision corresponds to the manufactured sensor PCB.
-- [ ] Add a team-approved board photograph or layout export, if available.
-- [ ] If claiming formal technical inspection or rules compliance publicly, link appropriate evidence.
-- [ ] Check licenses and attribution of any upstream component libraries.
-- [ ] Review all source files for sensitive configuration data before publishing.
+The schematic source is shared as part of a team electronics project. Permission to include the project materials has been confirmed by the repository owner.
 
-The source JSON is stored in a **private** repo. A change to Public should not occur automatically.
+Before changing visibility, check the EasyEDA export for personal notes or identifiers that the team would prefer not to publish. PCB photographs, layout and manufacturing files can be added later if the team makes them available.
+
+The `tools/inspect_schematic.py` check validates the sheet structure of the archive only. Electrical design checks and bench testing are separate activities. No performance measurement or formal technical inspection record is included in this repository.

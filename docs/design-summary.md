@@ -1,35 +1,31 @@
-# Design summary and evidence
+# Circuit overview
 
-## Context
+This repository contains a seven-sheet EasyEDA schematic for the sensor-interface electronics of METU Formula Racing's **Devrim 26**.
 
-METU Formula Racing, **Devrim 26**, sensor-interface electronics. A contributor reports that the board was ordered from China, manufactured, tested, used on the car, and met the relevant technical requirements. These deployment statements are not independently established by files in this repository.
+## Design organization
 
-## Directly supported by the EasyEDA JSON
-
-Source: `source/SCH_sensorpcb_2026-11-09.json`.
-
-| Sheet | What it covers | Representative items |
+| Sheet | Main function | Main components or nets |
 | --- | --- | --- |
-| PLAN | Functional grouping | ESP32 logic, power conversion, USB |
-| Vsupply | Input protection and regulated supplies | 12 V supply, 3.3 V and 5 V conversion, TPS562201 and protection parts |
-| PMI Sensor | Four PMI interfaces | LM358 signal-conditioning circuits and connectors |
-| OMRON | Four OMRON interfaces | Connectors and sensor-interface components |
-| USB | USB-to-serial interface | FT230XS, status LEDs and protection parts |
-| CANBUS | CAN PHY and signal connections | SN65HVD230, CANH/CANL |
-| ESP32 | Main control circuitry | ESP32-WROOM-32E family, control pins, sensor nets |
+| `PLAN` | Top-level system organization | Controller, supply, USB and sensor blocks |
+| `Vsupply` | Regulation and input protection | 12 V input, 5 V/3.3 V rails, TPS562201 circuitry |
+| `PMI Sensor` | Four sensor channels | Analog interface circuits, LM358 and connectors |
+| `OMRON` | Four sensor channels | OMRON sensor connections and interface parts |
+| `USB` | PC-to-board serial connection | FT230XS and associated components |
+| `CANBUS` | Connection to the vehicle CAN network | SN65HVD230, CANH, CANL |
+| `ESP32` | Microcontroller connections | ESP32-WROOM-32E and peripheral signals |
 
-The schematic contains collaborator notes and component choices from a work-in-progress engineering environment. The whole PCB should therefore be attributed to **METU Formula Racing hardware team** unless exact individual block ownership is separately established.
+## Board-level design
 
-## Original vs interpreted
+The ESP32 acts as the board controller. PMI and OMRON channels provide sensor inputs, while the CAN transceiver connects the board to the vehicle's CAN network. The FT230XS handles USB-to-UART communication. The supply section generates the regulated rails used by the digital and analog blocks.
 
-**Original source:** the seven-sheet EasyEDA schematic JSON with components and net wiring.
+The input protection, regulator choices, analog front-end circuitry and communication interfaces can be inspected in the [source schematic](../source/SCH_sensorpcb_2026-11-09.json).
 
-**Created portfolio graphic:** `assets/formula-sensor-architecture.svg`, a simplified block-level interpretation of that source.
+## From design to car
 
-**Contributor-reported lifecycle:** manufacturing, receipt of boards, physical testing, use in Devrim 26 and relevant Formula Racing checks.
+The hardware was ordered from a manufacturer in China, delivered to the team, tested and installed on Devrim 26. It was used on the vehicle and passed the relevant Formula Racing technical checks, as reported by the project team.
 
-**Not established:** correspondence of this exact export with final fabricated PCB revision; production test pass/fail records; measurable electrical performance; per-person schematic ownership; formal scrutineering certificates.
+The included JSON is a **schematic export**, not a PCB layout or manufacturing package. The final production revision, Gerbers, test logs and photographs would be useful additions if they are available later.
 
-## What would most strengthen this repository later
+## Attribution
 
-A team-approved photograph of the fabricated PCB installed on Devrim 26, an appropriately redacted PCB layout or 3D render, a verified final revision number, and non-sensitive test results. Those should be published only with permission.
+This was a team project. The schematic retains contributor comments; the repository does not assign all circuit blocks to one person.

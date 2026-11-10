@@ -1,47 +1,49 @@
-# Devrim 26 · Sensor Interface PCB
+# Devrim 26 — Sensor Interface PCB
 
-**METU Formula Racing | Embedded hardware · analog sensor interfaces · CAN communication**
+**METU Formula Racing | Electronics Team | 2026**
 
-This repository documents a **collaborative sensor-interface PCB** developed for METU Formula Racing's **Devrim 26** car. The design combines an ESP32 microcontroller with multiple sensor channels, CAN communications, USB–UART connectivity and regulated power supplies.
+This project documents the sensor-interface board developed for our **Devrim 26** race car. I worked on the PCB as part of the METU Formula Racing electronics team. The board was fabricated in China, tested after delivery, and used on the car.
 
-> **Hardware outcome (team-reported):** the PCB was manufactured, received from the fabricator in China, bench-tested, and installed and used in the Devrim 26 vehicle. The contributor reports that the board met applicable Formula Racing technical requirements. This repository does not contain an independent inspection certificate or complete test record.
+![Sensor board architecture](assets/formula-sensor-architecture.svg)
 
-![Functional block diagram (not a photograph or routed board)](assets/formula-sensor-architecture.svg)
+## Hardware
 
-## What is in the design
+The design brings several sensor interfaces and vehicle communications onto a single ESP32-based board.
 
-| Functional area | Components / structure present in the supplied schematic |
+| Block | Main components |
 | --- | --- |
-| Control | ESP32-WROOM-32E |
-| Vehicle CAN interface | SN65HVD230 CAN transceiver |
-| USB to serial | FT230XS USB–UART bridge |
-| Analog signal conditioning | LM358 operational amplifier circuitry |
-| Sensor connections | Four PMI channels and four OMRON channels |
+| Microcontroller | ESP32-WROOM-32E |
+| Vehicle communication | SN65HVD230 CAN transceiver |
+| USB communication | FT230XS USB–UART bridge |
+| Analog front end | LM358-based conditioning circuits |
+| Sensor inputs | Four PMI and four OMRON channels |
 | Power | 12 V input, 5 V and 3.3 V regulation and protection |
 
-The component list describes the **supplied EasyEDA schematic**, not an independently verified final assembly BOM.
+The block diagram above is drawn from the schematic. It is not a PCB layout or a photograph of the assembled board.
 
-## Design files and navigation
+## Development and testing
 
-- [Original EasyEDA schematic export](source/SCH_sensorpcb_2026-11-09.json) — seven design sheets, retained as supplied.
-- [Design summary and evidence boundaries](docs/design-summary.md) — what the schematic actually documents and what comes from the project contributor.
-- [Architecture illustration](assets/formula-sensor-architecture.svg) — derived overview; **not** a CAD view, PCB routing screenshot or measured result.
-- [Standard-library source check](tools/inspect_schematic.py) — summarizes project structure and checks the JSON archive without external EDA software.
+The board went through schematic design, fabrication, assembly-level testing, and vehicle integration. It was used on Devrim 26 and passed the technical checks applicable to the team's Formula Racing entry.
+
+This repository preserves the **EasyEDA schematic export**. The original PCB layout, Gerbers, board photographs, and test measurements are not included here, so those stages are described rather than reproduced.
+
+## Files
+
+- [EasyEDA schematic](source/SCH_sensorpcb_2026-11-09.json) — seven-sheet design.
+- [Circuit breakdown](docs/design-summary.md) — components, interfaces, and design organization.
+- [Architecture diagram](assets/formula-sensor-architecture.svg) — overview of the sensor and communication blocks.
+- [Schematic structure check](tools/inspect_schematic.py) — a small Python utility for listing the design sheets.
+
+The export contains these sheets: `PLAN`, `Vsupply`, `PMI Sensor`, `OMRON`, `USB`, `CANBUS`, and `ESP32`.
+
+To inspect the file structure:
 
 ```bash
-python3 tools/inspect_schematic.py source/SCH_sensorpcb_2026-11-09.json
+python3 tools/inspect_schematic.py source/SCH_sensorpcb_2026-11-09.json --verify-archive
 ```
 
-The source has seven sheets: `PLAN`, `Vsupply`, `PMI Sensor`, `OMRON`, `USB`, `CANBUS`, and `ESP32`. This export preserves original collaborator annotations.
+This command checks the archive structure; it does not replace ERC, DRC, or physical board tests.
 
-## Project contribution and provenance
+## Credits
 
-This is **team engineering work**, not a claim of individual authorship of every circuit and sheet. It combines electronics design work with a practical design-to-fabrication-to-vehicle lifecycle. The original schematic dates and comments reflect the historical design workflow; the export has **not** been identified as the exact manufactured board revision.
-
-**Repository status:** Private, pending team approval before release of source schematic, photos, Gerbers, layout and collaborator annotations. See [publication checklist](docs/publication-checklist.md).
-
-## Important limitations
-
-- No PCB copper routing, Gerbers, drill files, manufacturer outputs, assembly photographs, test logs or technical inspection record were included with this upload.
-- JSON parsing and source inspection are **not** DRC, ERC, ESD validation, hardware testing or official Formula Student scrutineering.
-- The architecture image is an interpretation of sheet labels and parts, not a verified net-by-net functional simulation.
+Developed within the **METU Formula Racing electronics team**. The schematic includes notes from multiple contributors. The project is presented here as part of my hardware portfolio, with team contributions retained.
