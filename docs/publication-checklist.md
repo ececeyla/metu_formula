@@ -1,7 +1,5 @@
-# Repository notes
+# Design archive notes
 
-The schematic source is shared as part of a team electronics project. Permission to include the project materials has been confirmed by the repository owner.
+The EasyEDA export contains the schematic for a team electronics project. The PCB layout, manufacturing files, board photographs and test records are not part of this archive.
 
-Before changing visibility, check the EasyEDA export for personal notes or identifiers that the team would prefer not to publish. PCB photographs, layout and manufacturing files can be added later if the team makes them available.
-
-The `tools/inspect_schematic.py` check validates the sheet structure of the archive only. Electrical design checks and bench testing are separate activities. No performance measurement or formal technical inspection record is included in this repository.
+Review contributor notes and identifiers before redistributing the schematic. The `tools/inspect_schematic.py` utility checks the sheet structure only; it does not perform electrical design checks or replace bench testing.
